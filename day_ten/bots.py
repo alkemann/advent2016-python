@@ -33,8 +33,12 @@ class Node:
         low = self.values[0] if self.values[0] < self.values[1] else self.values[1]
         high = self.values[0] if self.values[0] > self.values[1] else self.values[1]
         # BUGGY sends value down too many times
-        self.low.values.append(low)
-        self.high.values.append(high)
+        self.low.append(low)
+        self.high.append(high)
+
+    def append(self, v):
+        if v not in self.values:
+            self.values.append(v);
 
     def populate_values(self):
         for s in self.sources:
@@ -55,13 +59,13 @@ class Node:
 
     def dig(self, target, other):
         if self.is_output():
-            print("Output", self.id, "reached")
+            # print("Output", self.id, "reached")
             return None
-        print("Digging on ", self.id)
+        # print("Digging on ", self.id)
         if len(self.values) != 2:
             self.populate_values()
         if target in self.values and other in self.values:
-            print("Found match for ", target, other, "in", self.values, "on", self.id)
+            # print("Found match for ", target, other, "in", self.values, "on", self.id)
             return int(self)
 
         # while n is not output, loop down from low and ask them to populate values
@@ -134,5 +138,5 @@ def find_answer(commands, t1, t2):
 
 if __name__ == '__main__':
     strings = [s.rstrip() for s in open("instructions.txt", "r").readlines()]
-    n = 1
-    print("Number of bots: ", find_answer(commands=strings))
+    # not `0`
+    print("Number of bots: ", find_answer(commands=strings, t1=61, t2=17))
