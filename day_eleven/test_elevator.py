@@ -1,5 +1,5 @@
 from unittest import TestCase
-from day_eleven.elevator import find_answer
+from day_eleven.elevator import Building
 
 
 class TestElevator(TestCase):
@@ -10,4 +10,6 @@ class TestElevator(TestCase):
             "The third floor contains a lithium generator.",
             "The fourth floor contains nothing relevant.",
         ]
-        self.assertEqual(11, find_answer(instructions))
+        b = Building(instructions)
+        b.dump()
+        # self.assertEqual(11, find_answer(instructions))
