@@ -23,6 +23,13 @@ def room_is_real(name, checksum):
     return real == checksum
 
 
+def decrypt(name, id):
+    out = ''
+    for c in name:
+        out += ' ' if c == '-' else chr(((ord(c) - 97 + id) % 26) + 97)
+    return out
+
+
 if __name__ == '__main__':
     strings = [s.rstrip() for s in open("rooms.txt", "r").readlines()]
     result = 0
@@ -31,7 +38,11 @@ if __name__ == '__main__':
         if m is None:
             raise Exception("Failed to understand [ %s ]!" % s)
         name = m.group("name")
-        id = m.group("id")
+        id = int(m.group("id"))
         cs = m.group("checksum")
-        result += int(id) if room_is_real(name, cs) else 0
+        if room_is_real(name, cs):
+            result += id
+            print(id, decrypt(name, id))
+
     print("Result: %d" % result)
+    print(" (try `python3 checksum.py | grep north`)")

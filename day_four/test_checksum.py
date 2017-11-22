@@ -1,5 +1,5 @@
 from unittest import TestCase
-from day_four.checksum import room_is_real, calc_checksum
+from day_four.checksum import room_is_real, calc_checksum, decrypt
 
 
 class TestChecksum(TestCase):
@@ -14,3 +14,6 @@ class TestChecksum(TestCase):
         self.assertEquals("abxyz", calc_checksum("aaaaa-bbb-z-y-x"))
         self.assertEquals("abcde", calc_checksum("a-b-c-d-e-f-g-h"))
         self.assertEquals("oarel", calc_checksum("not-a-real-room"))
+
+    def test_decrypt(self):
+        self.assertEquals("very encrypted name", decrypt("qzmt-zixmtkozy-ivhz", 343))
