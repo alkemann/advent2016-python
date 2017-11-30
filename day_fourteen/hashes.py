@@ -25,7 +25,7 @@ def run(salt, limit):
         if penta and penta in triples:
             print("Penta with %s on iteration %d" % (penta, i))
             for triple_i in triples[penta]:
-                if (i - triple_i) <= 1000:
+                if (i - triple_i) <= 1000 and triple_i not in found:
                     found.append(triple_i)
                     last = triple_i
                     if len(found) == 64:
@@ -36,10 +36,11 @@ def run(salt, limit):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2: raise Exception("Missing salt")
-    else: salt = sys.argv[1]
+    else: salt_input = sys.argv[1]
     if len(sys.argv) >= 3: max_iterations = int(sys.argv[2])
     else: max_iterations = None
-    run(salt, max_iterations)
+    run(salt_input, max_iterations)
 
 # 126509 too high
+# 20573 too high
 # 14833 too low
